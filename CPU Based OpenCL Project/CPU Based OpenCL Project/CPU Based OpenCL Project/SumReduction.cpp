@@ -3,12 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE 16777216
+#define REDUCTION_SIZE 16777216
+#define WORK_GROUP_SIZE 256
 
 void makerandom(int *t) {
 	int i;
-	for (i = 0; i < SIZE; i++) {
-		*(t + i) = rand();
+	for (i = 0; i < REDUCTION_SIZE; i++) {
+		*(t + i) = 3;
 	}
 }
 
@@ -84,41 +85,41 @@ int main()
 	err = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 
 	/*OpenCL 커널 생성*/
-	kernel = clCreateKernel(program, "vec_mul", &err);
+	kernel = clCreateKernel(program, "reduction", &err);
 
 
 
 	/*메모리 버퍼 생성*/
-	dataBuffer = clCreateBuffer(context, 0, sizeof(int)*SIZE, NULL, &err);
-	resultBuffer = clCreateBuffer(context, 0, sizeof(int)* 65536, NULL, &err);
+	dataBuffer = clCreateBuffer(context, 0, sizeof(int)*REDUCTION_SIZE, NULL, &err);
+	resultBuffer = clCreateBuffer(context, 0, sizeof(int)* REDUCTION_SIZE/WORK_GROUP_SIZE, NULL, &err);
 
 	/*난수 생성*/
-	int* t = (int*)malloc(sizeof(int)*SIZE);
+	int* t = (int*)malloc(sizeof(int)*REDUCTION_SIZE);
 
 	int* result = (int*)calloc(65536, sizeof(int));
 
 	makerandom(t);
 
-	err = clEnqueueWriteBuffer(command_queue, dataBuffer, CL_TRUE, 0, sizeof(int)*SIZE, t, 0, NULL, NULL);
-	err = clEnqueueWriteBuffer(command_queue, resultBuffer, CL_TRUE, 0, sizeof(int)*SIZE, result, 0, NULL, NULL);
+	err = clEnqueueWriteBuffer(command_queue, dataBuffer, CL_TRUE, 0, sizeof(int)*REDUCTION_SIZE, t, 0, NULL, NULL);
+	err = clEnqueueWriteBuffer(command_queue, resultBuffer, CL_TRUE, 0, sizeof(int)*REDUCTION_SIZE, result, 0, NULL, NULL);
 
-	int size = SIZE;
+	int size = REDUCTION_SIZE;
 	/*OpenCL 커널 파라미터 설정*/
 	err = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void*)&dataBuffer);
 	err = clSetKernelArg(kernel, 1, sizeof(cl_mem), (void*)&resultBuffer);
-	err = clSetKernelArg(kernel, 2, sizeof(int)*65536, (void*)NULL);
+	err = clSetKernelArg(kernel, 2, sizeof(int)*REDUCTION_SIZE/WORK_GROUP_SIZE, (void*)NULL);
 	err = clSetKernelArg(kernel, 3, sizeof(int), (void*)&size);
 
 	/*OpenCL 커널 실행*/
-	size_t global_size = SIZE;
-	size_t local_size = 256;
+	size_t global_size = REDUCTION_SIZE;
+	size_t local_size = WORK_GROUP_SIZE;
 	clEnqueueNDRangeKernel(command_queue, kernel, 1, NULL, &global_size, &local_size, 0, NULL, NULL);
 
 	/*실행 결과를 메모리 버퍼에서 얻음*/
-	err = clEnqueueReadBuffer(command_queue, resultBuffer, CL_TRUE, 0, sizeof(int)* 65536, result, 0, NULL, NULL);
+	err = clEnqueueReadBuffer(command_queue, resultBuffer, CL_TRUE, 0, sizeof(int)* REDUCTION_SIZE/WORK_GROUP_SIZE, result, 0, NULL, NULL);
 
 	/*결과 출력*/
-	for (int i = 0; i < 65536; i++) {
+	for (int i = 0; i < REDUCTION_SIZE / WORK_GROUP_SIZE; i++) {
 		printf("[%d] : %d\n", i, result[i]);
 	}
 }
