@@ -7,13 +7,6 @@
 #define REDUCTION_SIZE 16777216
 #define WORK_GROUP_SIZE 256
 
-void makerandom(int *t) {
-	int i;
-	for (i = 0; i < REDUCTION_SIZE; i++) {
-		*(t + i) = rand()%10000;
-	}
-}
-
 char *get_source_code(const char *file_name, size_t *len) {
 	char *source_code;
 	char buf[2] = "\0";
@@ -66,7 +59,7 @@ int main()
 	char *source_code;
 	size_t source_size;
 
-	source_code = get_source_code("sum_reduction.cl", &source_size);
+	source_code = get_source_code("integral.cl", &source_size);
 
 	/*플랫폼, 디바이스 정보를 얻음*/
 	//2번째 파라미터는 얻을 플랫폼 id
@@ -88,32 +81,29 @@ int main()
 	err = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 
 	/*OpenCL 커널 생성*/
-	kernel = clCreateKernel(program, "reduction", &err);
+	kernel = clCreateKernel(program, "integral", &err);
 
 
 
 	/*메모리 버퍼 생성*/
-	dataBuffer = clCreateBuffer(context, 0, sizeof(int)*REDUCTION_SIZE, NULL, &err);
-	resultBuffer = clCreateBuffer(context, 0, sizeof(int)* REDUCTION_SIZE / WORK_GROUP_SIZE, NULL, &err);
+	//dataBuffer = clCreateBuffer(context, 0, sizeof(double)*REDUCTION_SIZE, NULL, &err);
+	resultBuffer = clCreateBuffer(context, 0, sizeof(double)* REDUCTION_SIZE / WORK_GROUP_SIZE, NULL, &err);
 
 	/*난수 생성*/
-	int* t = (int*)malloc(sizeof(int)*REDUCTION_SIZE);
+	//double* t = (double*)malloc(sizeof(double)*REDUCTION_SIZE);
 
-	int* result = (int*)calloc(REDUCTION_SIZE / WORK_GROUP_SIZE, sizeof(int));
+	double* result = (double*)calloc(REDUCTION_SIZE/WORK_GROUP_SIZE, sizeof(double));
 
-	makerandom(t);
+	//err = clEnqueueWriteBuffer(command_queue, dataBuffer, CL_TRUE, 0, sizeof(double)*REDUCTION_SIZE, t, 0, NULL, NULL);
+	err = clEnqueueWriteBuffer(command_queue, resultBuffer, CL_TRUE, 0, sizeof(double)*REDUCTION_SIZE / WORK_GROUP_SIZE, result, 0, NULL, NULL);
 
-	err = clEnqueueWriteBuffer(command_queue, dataBuffer, CL_TRUE, 0, sizeof(int)*REDUCTION_SIZE, t, 0, NULL, NULL);
-	err = clEnqueueWriteBuffer(command_queue, resultBuffer, CL_TRUE, 0, sizeof(int)*REDUCTION_SIZE, result, 0, NULL, NULL);
 
-	
 
 	int size = REDUCTION_SIZE;
 	/*OpenCL 커널 파라미터 설정*/
-	err = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void*)&dataBuffer);
-	err = clSetKernelArg(kernel, 1, sizeof(cl_mem), (void*)&resultBuffer);
-	err = clSetKernelArg(kernel, 2, sizeof(int)*WORK_GROUP_SIZE, (void*)NULL);
-	err = clSetKernelArg(kernel, 3, sizeof(int), (void*)&size);
+	err = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void*)&resultBuffer);
+	err = clSetKernelArg(kernel, 1, sizeof(double)*WORK_GROUP_SIZE, (void*)NULL);
+	err = clSetKernelArg(kernel, 2, sizeof(int), (void*)&size);
 
 	/*OpenCL 커널 실행*/
 	size_t global_size = REDUCTION_SIZE;
@@ -125,19 +115,18 @@ int main()
 	clEnqueueNDRangeKernel(command_queue, kernel, 1, NULL, &global_size, &local_size, 0, NULL, NULL);
 
 	/*실행 결과를 메모리 버퍼에서 얻음*/
-	err = clEnqueueReadBuffer(command_queue, resultBuffer, CL_TRUE, 0, sizeof(int)* REDUCTION_SIZE / WORK_GROUP_SIZE, result, 0, NULL, NULL);
-	
-	int sum = 0;
+	err = clEnqueueReadBuffer(command_queue, resultBuffer, CL_TRUE, 0, sizeof(double)* REDUCTION_SIZE / WORK_GROUP_SIZE, result, 0, NULL, NULL);
+
+	double sum = 0;
 	/*결과 출력*/
 	for (int i = 0; i < REDUCTION_SIZE / WORK_GROUP_SIZE; i++) {
 		sum += result[i];
 	}
-	double avg = (double)sum / REDUCTION_SIZE;
 
 	// end 시간 측정
 	e_time = clock();
 
-	printf("[Parallel]\nAverage value : %lf\nTime taken : %d ms\n\n", avg, e_time - s_time);
+	printf("[Parallel]\nIntegral value : %lf\nTime taken : %d ms\n\n", sum, e_time - s_time);
 
 	// start 시간 측정
 	s_time = clock();
@@ -145,12 +134,15 @@ int main()
 	sum = 0;
 	for (int i = 0; i < REDUCTION_SIZE; i++)
 	{
-		sum += t[i];
+		double dx = 1.0 / REDUCTION_SIZE;
+		double x = dx * i;
+		double fx = 3 * x*x + 2 * x + 1;
+		
+		sum += fx * dx;
 	}
-	avg = (double)sum / REDUCTION_SIZE;
 
 	// end 시간 측정
 	e_time = clock();
 
-	printf("[Sequential]\nAverage value : %lf\nTime taken : %d ms\n", avg, e_time - s_time);
+	printf("[Sequential]\nIntegral value : %lf\nTime taken : %d ms\n", sum, e_time - s_time);
 }
