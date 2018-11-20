@@ -185,12 +185,14 @@
     <ClCompile Include="bmpfuncs.cpp" />
     <ClCompile Include="ImgRotation.cpp" />
     <ClCompile Include="IntegralCalc.cpp" />
+    <ClCompile Include="IntegralCalcOptimized.cpp" />
     <ClCompile Include="SumReduction.cpp" />
     <ClCompile Include="VecMul.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Intel_OpenCL_Build_Rules Include="image_rotation.cl" />
     <Intel_OpenCL_Build_Rules Include="integral.cl" />
+    <Intel_OpenCL_Build_Rules Include="integral_opt.cl" />
     <Intel_OpenCL_Build_Rules Include="kernel.cl" />
     <Intel_OpenCL_Build_Rules Include="sum_reduction.cl" />
   </ItemGroup>
