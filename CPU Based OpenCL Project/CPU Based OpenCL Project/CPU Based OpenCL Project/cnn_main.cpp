@@ -107,11 +107,11 @@ float** slice_network(float *p) {
 }
 
 int main(int argc, char **argv) {
-	if (argc != 3) {
-		print_usage_and_exit(argv);
-	}
+	//if (argc != 3) {
+	//	print_usage_and_exit(argv);
+	//}
 
-	int num_images = atoi(argv[1]);
+	int num_images = /*atoi(argv[1]);*/3000;
 	float *images = read_images(num_images);
 	float *network = read_network();
 	float **network_sliced = slice_network(network);
@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
 	time_t end = clock();
 	printf("Elapsed time: %f sec\n", (double)(end - start) / CLK_TCK);
 
-	FILE *of = fopen(argv[2], "w");
+	FILE *of = fopen(/*argv[2]*/"result.out", "w");
 	int *labels_ans = read_labels(num_images);
 	double acc = 0;
 	for (int i = 0; i < num_images; ++i) {

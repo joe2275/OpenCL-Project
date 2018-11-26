@@ -194,7 +194,7 @@ void cnn(float *images, float **network, int *labels, float *confidences, int nu
 	{
 		float *image = images + i * 3 * 32 * 32;
 
-		convolution_layer(image, c1_1, w1_1, b1_1, 64, 3, 32);
+		convolution_layer(image, c1_1, w1_1, b1_1, 64, 32, 32);
 		convolution_layer(c1_1, c1_2, w1_2, b1_2, 64, 64, 32);
 		pooling_layer(c1_2, p1, 64, 16);
 

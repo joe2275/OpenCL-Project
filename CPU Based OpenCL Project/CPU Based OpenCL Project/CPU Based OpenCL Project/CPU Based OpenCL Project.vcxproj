@@ -183,13 +183,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bmpfuncs.cpp" />
+    <ClCompile Include="cnn_opencl.cpp" />
+    <ClCompile Include="cnn_seq.cpp" />
+    <ClCompile Include="cnn_compare_are_result.cpp" />
     <ClCompile Include="ImgRotation.cpp" />
     <ClCompile Include="IntegralCalc.cpp" />
     <ClCompile Include="IntegralCalcOptimized.cpp" />
+    <ClCompile Include="cnn_main.cpp" />
     <ClCompile Include="SumReduction.cpp" />
     <ClCompile Include="VecMul.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Intel_OpenCL_Build_Rules Include="cnn_kernel.cl" />
     <Intel_OpenCL_Build_Rules Include="image_rotation.cl" />
     <Intel_OpenCL_Build_Rules Include="integral.cl" />
     <Intel_OpenCL_Build_Rules Include="integral_opt.cl" />
@@ -198,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bmpfuncs.h" />
+    <ClInclude Include="cnn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,6 +30,9 @@
     <Intel_OpenCL_Build_Rules Include="integral_opt.cl">
       <Filter>OpenCL Files</Filter>
     </Intel_OpenCL_Build_Rules>
+    <Intel_OpenCL_Build_Rules Include="cnn_kernel.cl">
+      <Filter>OpenCL Files</Filter>
+    </Intel_OpenCL_Build_Rules>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VecMul.cpp">
@@ -50,9 +53,24 @@
     <ClCompile Include="IntegralCalcOptimized.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cnn_opencl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cnn_seq.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cnn_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cnn_compare_are_result.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bmpfuncs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cnn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
