@@ -64,7 +64,7 @@ static void convolution_layer(float *inputs, float *outputs, float *filters, flo
 	int i, j;
 
 	memset(outputs, 0, sizeof(float) * N * N * D2);
-
+	//...
 	for (j = 0; j < D2; j++) {
 		for (i = 0; i < D1; i++) {
 			float * input = inputs + N * N * i;
@@ -73,7 +73,7 @@ static void convolution_layer(float *inputs, float *outputs, float *filters, flo
 			convolution3x3(input, output, filter, N);
 		}
 	}
-
+	//...
 	for (i = 0; i < D2; i++) {
 		float * output = outputs + N * N * i;
 		float bias = biases[i];
@@ -194,7 +194,7 @@ void cnn(float *images, float **network, int *labels, float *confidences, int nu
 	{
 		float *image = images + i * 3 * 32 * 32;
 
-		convolution_layer(image, c1_1, w1_1, b1_1, 64, 32, 32);
+		convolution_layer(image, c1_1, w1_1, b1_1, 64, 3, 32);
 		convolution_layer(c1_1, c1_2, w1_2, b1_2, 64, 64, 32);
 		pooling_layer(c1_2, p1, 64, 16);
 

@@ -30,7 +30,10 @@
     <Intel_OpenCL_Build_Rules Include="integral_opt.cl">
       <Filter>OpenCL Files</Filter>
     </Intel_OpenCL_Build_Rules>
-    <Intel_OpenCL_Build_Rules Include="cnn_kernel.cl">
+    <Intel_OpenCL_Build_Rules Include="cnn_convolution.cl">
+      <Filter>OpenCL Files</Filter>
+    </Intel_OpenCL_Build_Rules>
+    <Intel_OpenCL_Build_Rules Include="cnn_pooling.cl">
       <Filter>OpenCL Files</Filter>
     </Intel_OpenCL_Build_Rules>
   </ItemGroup>

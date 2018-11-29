@@ -1,7 +1,6 @@
 
 
-__kernel void cnn_kernel(__global float * inputs, __global float * outputs, __global float * network, 
-	__local float * l_inputs, __local float * l_outputs) { 
+__kernel void cnn_pooling__global float * inputs, __global float * outputs, int D, int N) { 
 	
 	int i = get_global_id(0);
 	int j = get_global_id(1);

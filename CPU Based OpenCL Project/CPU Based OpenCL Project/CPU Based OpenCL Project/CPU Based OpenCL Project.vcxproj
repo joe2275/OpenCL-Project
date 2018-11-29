@@ -194,7 +194,8 @@
     <ClCompile Include="VecMul.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Intel_OpenCL_Build_Rules Include="cnn_kernel.cl" />
+    <Intel_OpenCL_Build_Rules Include="cnn_convolution.cl" />
+    <Intel_OpenCL_Build_Rules Include="cnn_pooling.cl" />
     <Intel_OpenCL_Build_Rules Include="image_rotation.cl" />
     <Intel_OpenCL_Build_Rules Include="integral.cl" />
     <Intel_OpenCL_Build_Rules Include="integral_opt.cl" />
