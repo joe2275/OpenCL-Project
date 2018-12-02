@@ -1,18 +1,24 @@
 
 
-__kernel void cnn_pooling__global float * inputs, __global float * outputs, int D, int N) { 
+__kernel void cnn_pooling(__global float * inputs, __global float * outputs, int D, int N) { 
 	
 	int i = get_global_id(0);
-	int j = get_global_id(1);
-	
 	int l_i = get_local_id(0);
-	int l_j = get_local_id(1);
+	int k, l;
 
-	int l_i_size = get_local_size(0);
+	int j = i / (N*N);
+	int x = l_i / N;
+	int y = l_i % N;
+	float pixel;
 
-	l_inputs[l_i + l_j*l_i_size] = inputs[i%l_i_size + j*l_i_size];
+	float max_num = 0;
 
-	barrier(CLK_LOCAL_MEM_FENCE);
+	for(k=0; k<2; ++k) { 
+		for(l=0; l<2; ++l) {
+			pixel = inputs[j * 4 * N * N + x * 2 * N * 2 + k * N * 2 + y * 2 + l];
+			max_num = (max_num < pixel ? pixel : max_num);
+		}
+	}
 
-	
+	outputs[i] = max_num;
 }
