@@ -1,0 +1,95 @@
+	/*메모리 버퍼 생성*/
+	dataBuffer[0] = clCreateBuffer(context, 0, sizeof(float) * 3 * 32 * 32, NULL, &err);
+	resultBuffer[0] = clCreateBuffer(context, 0, sizeof(float) * 64 * 32 * 32, NULL, &err);
+	filterBuffer[0] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 3 * 64, NULL, &err);
+	biasBuffer[0] = clCreateBuffer(context, 0, sizeof(float) * 64, NULL, &err);
+
+	dataBuffer[1] = clCreateBuffer(context, 0, sizeof(float) * 64 * 32 * 32, NULL, &err);
+	resultBuffer[1] = clCreateBuffer(context, 0, sizeof(float) * 64 * 32 * 32, NULL, &err);
+	filterBuffer[1] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 64 * 64, NULL, &err);
+	biasBuffer[1] = clCreateBuffer(context, 0, sizeof(float) * 64, NULL, &err);
+
+	dataBuffer[2] = clCreateBuffer(context, 0, sizeof(float) * 64 * 32 * 32, NULL, &err);
+	resultBuffer[2] = clCreateBuffer(context, 0, sizeof(float) * 64 * 16 * 16, NULL, &err);
+
+	dataBuffer[3] = clCreateBuffer(context, 0, sizeof(float) * 64 * 16 * 16, NULL, &err);
+	resultBuffer[3] = clCreateBuffer(context, 0, sizeof(float) * 128 * 16 * 16, NULL, &err);
+	filterBuffer[3] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 128 * 64, NULL, &err);
+	biasBuffer[3] = clCreateBuffer(context, 0, sizeof(float) * 128, NULL, &err);
+
+	dataBuffer[4] = clCreateBuffer(context, 0, sizeof(float) * 128 * 16 * 16, NULL, &err);
+	resultBuffer[4] = clCreateBuffer(context, 0, sizeof(float) * 128 * 16 * 16, NULL, &err);
+	filterBuffer[4] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 128 * 128, NULL, &err);
+	biasBuffer[4] = clCreateBuffer(context, 0, sizeof(float) * 128, NULL, &err);
+
+	dataBuffer[5] = clCreateBuffer(context, 0, sizeof(float) * 128 * 16 * 16, NULL, &err);
+	resultBuffer[5] = clCreateBuffer(context, 0, sizeof(float) * 128 * 8 * 8, NULL, &err);
+
+	dataBuffer[6] = clCreateBuffer(context, 0, sizeof(float) * 128 * 8 * 8, NULL, &err);
+	resultBuffer[6] = clCreateBuffer(context, 0, sizeof(float) * 256 * 8 * 8, NULL, &err);
+	filterBuffer[6] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 256 * 128, NULL, &err);
+	biasBuffer[6] = clCreateBuffer(context, 0, sizeof(float) * 256, NULL, &err);
+
+	dataBuffer[7] = clCreateBuffer(context, 0, sizeof(float) * 256 * 8 * 8, NULL, &err);
+	resultBuffer[7] = clCreateBuffer(context, 0, sizeof(float) * 256 * 8 * 8, NULL, &err);
+	filterBuffer[7] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 256 * 256, NULL, &err);
+	biasBuffer[7] = clCreateBuffer(context, 0, sizeof(float) * 256, NULL, &err);
+
+	dataBuffer[8] = clCreateBuffer(context, 0, sizeof(float) * 256 * 8 * 8, NULL, &err);
+	resultBuffer[8] = clCreateBuffer(context, 0, sizeof(float) * 256 * 8 * 8, NULL, &err);
+	filterBuffer[8] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 256 * 256, NULL, &err);
+	biasBuffer[8] = clCreateBuffer(context, 0, sizeof(float) * 256, NULL, &err);
+
+	dataBuffer[9] = clCreateBuffer(context, 0, sizeof(float) * 256 * 8 * 8, NULL, &err);
+	resultBuffer[9] = clCreateBuffer(context, 0, sizeof(float) * 256 * 4 * 4, NULL, &err);
+
+	dataBuffer[10] = clCreateBuffer(context, 0, sizeof(float) * 256 * 4 * 4, NULL, &err);
+	resultBuffer[10] = clCreateBuffer(context, 0, sizeof(float) * 512 * 4 * 4, NULL, &err);
+	filterBuffer[10] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 512 * 256, NULL, &err);
+	biasBuffer[10] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+
+	dataBuffer[11] = clCreateBuffer(context, 0, sizeof(float) * 512 * 4 * 4, NULL, &err);
+	resultBuffer[11] = clCreateBuffer(context, 0, sizeof(float) * 512 * 4 * 4, NULL, &err);
+	filterBuffer[11] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 512 * 512, NULL, &err);
+	biasBuffer[11] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+
+	dataBuffer[12] = clCreateBuffer(context, 0, sizeof(float) * 512 * 4 * 4, NULL, &err);
+	resultBuffer[12] = clCreateBuffer(context, 0, sizeof(float) * 512 * 4 * 4, NULL, &err);
+	filterBuffer[12] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 512 * 512, NULL, &err);
+	biasBuffer[12] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+
+	dataBuffer[13] = clCreateBuffer(context, 0, sizeof(float) * 512 * 4 * 4, NULL, &err);
+	resultBuffer[13] = clCreateBuffer(context, 0, sizeof(float) * 512 * 2 * 2, NULL, &err);
+
+	dataBuffer[14] = clCreateBuffer(context, 0, sizeof(float) * 512 * 2 * 2, NULL, &err);
+	resultBuffer[14] = clCreateBuffer(context, 0, sizeof(float) * 512 * 2 * 2, NULL, &err);
+	filterBuffer[14] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 512 * 512, NULL, &err);
+	biasBuffer[14] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+
+	dataBuffer[15] = clCreateBuffer(context, 0, sizeof(float) * 512 * 2 * 2, NULL, &err);
+	resultBuffer[15] = clCreateBuffer(context, 0, sizeof(float) * 512 * 2 * 2, NULL, &err);
+	filterBuffer[15] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 512 * 512, NULL, &err);
+	biasBuffer[15] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+
+	dataBuffer[16] = clCreateBuffer(context, 0, sizeof(float) * 512 * 2 * 2, NULL, &err);
+	resultBuffer[16] = clCreateBuffer(context, 0, sizeof(float) * 512 * 2 * 2, NULL, &err);
+	filterBuffer[16] = clCreateBuffer(context, 0, sizeof(float) * 3 * 3 * 512 * 512, NULL, &err);
+	biasBuffer[16] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+
+	dataBuffer[17] = clCreateBuffer(context, 0, sizeof(float) * 512 * 2 * 2, NULL, &err);
+	resultBuffer[17] = clCreateBuffer(context, 0, sizeof(float) * 512 * 1 * 1, NULL, &err);
+
+	dataBuffer[18] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+	resultBuffer[18] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+	filterBuffer[18] = clCreateBuffer(context, 0, sizeof(float) * 512 * 512, NULL, &err);
+	biasBuffer[18] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+
+	dataBuffer[19] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+	resultBuffer[19] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+	filterBuffer[19] = clCreateBuffer(context, 0, sizeof(float) * 512 * 512, NULL, &err);
+	biasBuffer[19] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+
+	dataBuffer[20] = clCreateBuffer(context, 0, sizeof(float) * 512, NULL, &err);
+	resultBuffer[20] = clCreateBuffer(context, 0, sizeof(float) * 10, NULL, &err);
+	filterBuffer[20] = clCreateBuffer(context, 0, sizeof(float) * 10 * 512, NULL, &err);
+	biasBuffer[20] = clCreateBuffer(context, 0, sizeof(float) * 10, NULL, &err);

@@ -154,7 +154,6 @@ void execute_convolution_layer(float *inputs, float *outputs, float *filters, fl
 
 	err = clEnqueueNDRangeKernel(command_queue, kernel[0], 1, NULL, &global_size, &local_size, 0, NULL, NULL);
 	CHECK_ERROR(err);
-	buffer
 }
  
 void execute_pooling_layer(float * inputs, float * outputs, int D, int N)
@@ -301,12 +300,6 @@ void cnn(float *images, float **network, int *labels, float *confidences, int nu
 
 	for (int i = 0; i < num_images; ++i)
 	{
-		//for (int j = 0; j < 3 * 32 * 32; j++)
-		//{
-		//	printf("%lf ", images[j]);
-		//}
-		//printf("\n");
-		printf("%lf\n", images[i * 3 * 32 * 32]);
 		execute_convolution_layer(images + i * 3 * 32 * 32, c1_1, w1_1, b1_1, 64, 3, 32);
 		read_buffer(resultBuffer, c1_1, 64 * 32 * 32);
 		execute_convolution_layer(c1_1, c1_2, w1_2, b1_2, 64, 64, 32);
