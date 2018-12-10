@@ -1,7 +1,11 @@
+// GPU_CNN_Project.cpp : 콘솔 응용 프로그램에 대한 진입점을 정의합니다.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include "cnn.h"
+//#include "stdafx.h"
 
 const char *CLASS_NAME[] = {
 	"airplane",
@@ -106,12 +110,12 @@ float** slice_network(float *p) {
 	return r;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char* argv[]) {
 	//if (argc != 3) {
 	//	print_usage_and_exit(argv);
 	//}
 
-	int num_images = /*atoi(argv[1]);*/1000;
+	int num_images = /*atoi(argv[1]);*/30;
 	float *images = read_images(num_images);
 	float *network = read_network();
 	float **network_sliced = slice_network(network);
@@ -143,3 +147,4 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
+

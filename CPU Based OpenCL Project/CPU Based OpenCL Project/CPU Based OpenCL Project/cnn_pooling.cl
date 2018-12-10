@@ -3,7 +3,7 @@
 __kernel void cnn_pooling(__global float * inputs, __global float * outputs, int D, int N) { 
 	
 	int i = get_global_id(0);
-	int l_i = get_local_id(0);
+	int l_i = i%(N*N);
 	int k, l;
 
 	int j = i / (N*N);

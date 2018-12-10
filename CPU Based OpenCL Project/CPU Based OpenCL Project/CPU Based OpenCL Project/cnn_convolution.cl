@@ -3,7 +3,7 @@
 __kernel void cnn_convolution(__global float * inputs, __global float * outputs, __global float * filters, __global float * biases, int D2, int D1, int N) { 
 	
 	int i = get_global_id(0);
-	int l_i = get_local_id(0);
+	int l_i = i%(N*N);
 	int j, k, l, m, x, y;
 	int l_x, l_y;
 	float sum = 0;
@@ -27,5 +27,5 @@ __kernel void cnn_convolution(__global float * inputs, __global float * outputs,
 	}
 
 	sum += biases[j];
-	outputs[i] = (sum > 0 ? sum : -sum);
+	outputs[i] = (sum > 0 ? sum : 0);
 }
