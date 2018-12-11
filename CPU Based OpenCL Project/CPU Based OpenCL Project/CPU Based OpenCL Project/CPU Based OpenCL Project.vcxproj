@@ -197,6 +197,7 @@
     <Intel_OpenCL_Build_Rules Include="cnn_convolution.cl" />
     <Intel_OpenCL_Build_Rules Include="cnn_fc.cl" />
     <Intel_OpenCL_Build_Rules Include="cnn_pooling.cl" />
+    <Intel_OpenCL_Build_Rules Include="cnn_reduction.cl" />
     <Intel_OpenCL_Build_Rules Include="image_rotation.cl" />
     <Intel_OpenCL_Build_Rules Include="integral.cl" />
     <Intel_OpenCL_Build_Rules Include="integral_opt.cl" />

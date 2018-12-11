@@ -39,6 +39,9 @@
     <Intel_OpenCL_Build_Rules Include="cnn_fc.cl">
       <Filter>OpenCL Files</Filter>
     </Intel_OpenCL_Build_Rules>
+    <Intel_OpenCL_Build_Rules Include="cnn_reduction.cl">
+      <Filter>OpenCL Files</Filter>
+    </Intel_OpenCL_Build_Rules>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VecMul.cpp">
